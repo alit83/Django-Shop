@@ -1,0 +1,18 @@
+#main module
+asgiref==3.11.1
+Django==5.2.12
+psycopg-binary==3.3.3
+python-decouple==3.8
+sqlparse==0.5.5
+pillow==12.1.1
+requests==2.33.1
+# database module
+psycopg[binary]
+
+#email module
+django-mail-templated
+
+django_debug_toolbar
+celery
+redis
+django-redis

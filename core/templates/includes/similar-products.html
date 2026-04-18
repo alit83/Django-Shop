@@ -1,0 +1,91 @@
+{% load static %}
+
+<!-- Card Grid -->
+<div class="container content-space-2 content-space-lg-3">
+    <!-- Title -->
+    <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+        <h2>فقط برای شما</h2>
+    </div>
+    <!-- End Title -->
+
+    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        {% for object in similar_prodcuts %}
+        <div class="col mb-4">
+            <!-- Card -->
+            <div class="card card-bordered shadow-none text-center h-100">
+                <div class="card-pinned">
+                    {% if object.has_image %}
+                    <img class="card-img-top" src="{{ object.get_first_image}}" alt="Image Description">
+                    {% else %}
+                    <img class="card-img-top" src="{% static '/img/600x600/img1.jpg' %}" alt="Image Description">
+                    {% endif %}
+
+                    <div class="card-pinned-top-end">
+                         {% if request.user.is_authenticated %}
+                        <button type="button"
+                            class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if object.id in wishlist_items %} active {% endif %}"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق"
+                            onclick="addToWishlist(this,`{{object.id}}`)">
+                            <i class="bi-heart"></i>
+                        </button>
+                         {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-2">
+                        <a class="link-sm link-secondary" href="#">{{ object.category }}</a>
+
+                    </div>
+
+                    <h4 class="card-title">
+                        <a class="text-dark"
+                            href="{% url 'shop:products-detail' slug=object.slug %}">{{object.title}}</a>
+                    </h4>
+                    {% if object.is_discounted %}
+                    <p class="card-text text-dark fs-4">
+                        <span class="formatted-price">{{object.get_price}}</span>
+                        <span
+                            class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{object.price}}</span>
+                    </p>
+                    {% else %}
+                    <p class="card-text text-dark fs-4 formatted-price"> {{object.price}}</p>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer pt-0">
+                    <!-- Rating -->
+                    <a class="d-inline-flex align-items-center mb-3" href="#">
+                        <div class="d-flex gap-1 ms-2">
+                            {% for i in "12345" %}
+                            {% if i|add:0 <= object.avg_rate %} <span><i class="bi bi-star-fill star-rate"></i></span>
+                                {% else %}
+                                <span><i class="bi bi-star star-rate"></i></span>
+                                {% endif %}
+
+                                {% endfor %}
+                        </div>
+                        <span class="ms-1">{{object.avg_rate}}/5</span>
+
+                    </a>
+                    <!-- End Rating -->
+
+                    <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill"
+                        onclick="addToCart('{{object.id}}')">افزودن به
+                        سبد
+                        خرید</button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        {% empty %}
+        <div class="row text-center w-100 pv-5">
+            <p class="text-center">هیچ کالایی برای نمایش وجود ندارد</p>
+        </div>
+        {% endfor %}
+
+        <!-- End Col -->
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Card Grid -->

@@ -12,7 +12,15 @@ psycopg[binary]
 #email module
 django-mail-templated
 
+#test module
 django_debug_toolbar
+pytest
+pytest-django
+requests-mock
+#cache & async task module 
 celery
 redis
 django-redis
+
+#captcha module
+django-simple-captcha

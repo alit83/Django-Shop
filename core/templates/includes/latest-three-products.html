@@ -11,7 +11,7 @@
           {% if object.has_image %}
           <img class="card-img-top" src="{{ object.get_first_image}}" alt="Image Description">
           {% else %}
-          <img class="card-img-top" src="{% static '/img/600x600/img1.jpg' %}" alt="Image Description">
+          <img class="card-img-top" src="{% static 'img/600x600/img1.jpg' %}" alt="Image Description">
           {% endif %}
 
           <div class="card-pinned-top-end">

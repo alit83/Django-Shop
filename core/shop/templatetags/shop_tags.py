@@ -1,14 +1,20 @@
 from django import template
 from shop.models import ProductStatus , Product , WishlistProductModel , Attribute ,ProductAttribute
 register = template.Library()
+from django.core.cache import cache
 
 @register.inclusion_tag("includes/latest-products.html",takes_context=True)
 def show_latest_products(context):
     request = context.get("request")
-    latest_products = Product.objects.filter(
+    latest_products = cache.get("latest_products_tag")
+    if latest_products is None:
+        latest_products = Product.objects.filter(
         status=ProductStatus.publish.value).distinct().order_by("-created_date")[:8]
-    wishlist_items = WishlistProductModel.objects.filter(user=request.user).values_list("product__id",flat=True) if request.user.is_authenticated else []
-    return {"latest_products": latest_products,"request":request,"wishlist_items":wishlist_items}
+        cache.set("latest_products_tag", latest_products, 1800)
+    wishlist_items =  WishlistProductModel.objects.filter(user=request.user).values_list("product__id",flat=True) if request.user.is_authenticated else []
+    result = {"latest_products": latest_products,"user":request.user,"wishlist_items":wishlist_items}
+   
+    return result
 
 
 @register.inclusion_tag("includes/similar-products.html",takes_context=True)

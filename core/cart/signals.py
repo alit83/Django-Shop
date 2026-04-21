@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.contrib.sessions.backends.db import SessionStore
 from django.db.models.signals import pre_save
 from .cart import CartSession
+from django.core.cache import cache
 from .models import CartItemModel , CartModel
 from django.contrib.sessions.models import Session
 from shop.models import Product , ProductStatus
@@ -31,7 +32,7 @@ def status_changed(sender, instance, **kwargs):
         return
 
     #user = instance.user
-
+    cache.delete('latest_products_tag')
     CartItemModel.objects.filter(product=instance).delete()
 
     # 2.remove session data

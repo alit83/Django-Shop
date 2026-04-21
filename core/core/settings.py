@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'payment',
     'review',
     "mail_templated",
+    'captcha',
     
 ]
 
@@ -185,16 +186,13 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
-    'product_pages': {
+    'latest_products_tag': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': 'redis://redis:6379/2',
-        'TIMEOUT': 900,  # 15 min
+        'TIMEOUT': 1800,  # 30 min
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
-            'IGNORE_EXCEPTIONS': True,
-        },
-        'KEY_PREFIX': 'product_cache',
+ }
     },
 }
 
@@ -207,3 +205,17 @@ SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool, default=True)
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: True,  # Bypass IP check completely
 }
+
+
+# adding additional languages support
+# from django.utils.translation import gettext_lazy as _
+# LANGUAGES = (
+#     ('en', _('English')),
+#     ('fa', _('Farsi')),
+# )
+# LOCALE_PATHS = [
+#     BASE_DIR / 'locale/',
+# ]
+# MIDDLEWARE += [
+#     "django.middleware.locale.LocaleMiddleware",
+# ]

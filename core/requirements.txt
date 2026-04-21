@@ -16,3 +16,7 @@ django_debug_toolbar
 celery
 redis
 django-redis
+django-simple-captcha
+pytest
+pytest-django
+requests-mock

@@ -1,6 +1,7 @@
 from django.db import models
 from decimal import Decimal
 from django.core.validators import MinValueValidator , MaxValueValidator
+from django.core.cache import cache
 # Create your models here.
 class ProductStatus(models.IntegerChoices):
     publish = 1 , ('نمایش')

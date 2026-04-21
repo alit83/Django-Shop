@@ -7,10 +7,11 @@ from review.models import ReviewModel , ReviewStatus
 from django.http import JsonResponse
 from django.db.models import Q , Subquery, OuterRef
 from django.db import models
+from typing import List, Dict
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
 from django.contrib.postgres.aggregates import ArrayAgg
-from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 # Create your views here.
 
 class ShopProductsGridView(ListView):
@@ -143,7 +144,6 @@ class ShopProductMiddleView(ListView):
             try:
                 allowed_orders = ['-created_date', 'price', 'created_date', '-price',]
                 if order in allowed_orders:
-                    print('test')
                     queryset=queryset.order_by(order)
             except FieldError:
                 pass

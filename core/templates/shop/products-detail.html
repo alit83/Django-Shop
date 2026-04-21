@@ -430,12 +430,15 @@
               <h4 class="mb-0">دیدگاه ها</h4>
             </div>
             <!-- End Col -->
+            {% if request.user.is_authenticated %}
             <div class="col-sm-auto mb-2 text-center">
                 <button type="button" class="btn btn-primary btn-transition rounded-pill"
                     data-bs-toggle="modal" data-bs-target="#submitReviewModal">
                        ثبت دیدگاه</button>
             </div>
-
+            {% else %}
+            <p>برای ثبت دیدگاه وارد اکانت خود شوید</p>
+          {% endif %}
             <!-- End Col -->
           </div>
           <!-- End Row -->
@@ -484,9 +487,6 @@
         </ul>
         <!-- End Comment -->
 
-        <div class="d-sm-flex justify-content-sm-end gap-2">
-          <a class="btn btn-link" href="#">ادامه مطلب <i class="bi-chevron-left small me-1"></i></a>
-        </div>
       </div>
     </div>
     <!-- End Col -->

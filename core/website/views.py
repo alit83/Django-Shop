@@ -5,6 +5,7 @@ from shop.models import RecommendationProductModel , ProductStatus , ProductCate
 from order.models import CouponModel
 from datetime import datetime, timedelta
 from .forms import ContactForm , NewsLetterForm
+from .models import ContactModel
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -28,15 +29,18 @@ class IndexView(TemplateView):
         return context
 class ContactView(TemplateView):
     template_name = "website/contact.html"
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = ContactForm
+        return context
 class AboutView(TemplateView):
     template_name = "website/about.html"
 
 class ContactSendView(CreateView):
     http_method_names = ['post']
     form_class = ContactForm
-
     def form_valid(self, form):
+        form.is_valid(raise_exception=True)
         form.save()
         messages.success(self.request,'تیکت شما با موفقیت ثبت شد و در اسرع وقت با شما تماس حاصل خواهد شد')
         return super().form_valid(form)

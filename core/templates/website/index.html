@@ -148,7 +148,7 @@
                     </div>
                     {% else %}
                     <div class="w-65 border-end">
-                        <img class="img-fluid" src="{% static '/img/600x600/img1.jpg' %}" alt="Image Description">
+                        <img class="img-fluid" src="{% static 'img/600x600/img1.jpg' %}" alt="Image Description">
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -161,14 +161,14 @@
                         </div>
                         {% else %}
                         <div class="border-bottom">
-                            <img class="img-fluid" src="{% static '/img/600x600/img1.jpg' %}" alt="Image Description">
+                            <img class="img-fluid" src="{% static 'img/600x600/img1.jpg' %}" alt="Image Description">
                         </div>
                         {% endif %}
                         {% else %}
                         {% if product.has_image %}
                         <img class="img-fluid" src="{{product.get_first_image}}" alt="Image Description">
                         {% else %}
-                        <img class="img-fluid" src="{% static '/img/600x600/img1.jpg' %}" alt="Image Description">
+                        <img class="img-fluid" src="{% static 'img/600x600/img1.jpg' %}" alt="Image Description">
                         {% endif %}
                         {% endif %}
                         {% endfor %}

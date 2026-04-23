@@ -24,3 +24,6 @@ django-redis
 
 #captcha module
 django-simple-captcha
+
+# production module
+gunicorn

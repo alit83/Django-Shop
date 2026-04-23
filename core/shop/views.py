@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import FieldError
 from review.models import ReviewModel , ReviewStatus
 from django.http import JsonResponse
-from django.db.models import Q , Subquery, OuterRef
+from django.db.models import Q , Subquery, OuterRef , Count
 from django.db import models
 from typing import List, Dict
 from django.utils.decorators import method_decorator
@@ -75,7 +75,17 @@ class ShopProductsDetailView(DetailView):
         product = self.get_object()
         context["is_wished"] = WishlistProductModel.objects.filter(
             user=self.request.user, product__id=product.id).exists() if self.request.user.is_authenticated else False
-        context['reviews']=ReviewModel.objects.filter(product=product , status=ReviewStatus.accepted.value)
+        reviews = ReviewModel.objects.filter(product=product , status=ReviewStatus.accepted.value)
+        context['reviews']=reviews
+        total_reviews = reviews.count()
+        
+        rate_counts = reviews.values('rate').annotate(count=Count('rate')) #Count make group by rate
+        counts_dict = {item['rate']: item['count'] for item in rate_counts}
+        for rate in range(1, 6):
+            count = counts_dict.get(rate, 0)
+            context[f'review_{rate}'] = count
+            context[f'style_{rate}'] = (100 * count / total_reviews) if total_reviews > 0 else 0
+
         return context
 
 class AddOrRemoveWishlistView(LoginRequiredMixin, View):

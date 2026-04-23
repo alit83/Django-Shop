@@ -7,6 +7,10 @@ from django.core.cache import cache
 from .models import CartItemModel , CartModel
 from django.contrib.sessions.models import Session
 from shop.models import Product , ProductStatus
+from django.conf import settings
+from importlib import import_module
+from django_redis import get_redis_connection
+
 
 @receiver(user_logged_in)
 def post_login(sender,user,request,**kwargs):
@@ -19,7 +23,7 @@ def pre_logout(sender,user,request,**kwargs):
     cart.merge_session_cart_in_db(user)
 
 
-
+SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
 @receiver(pre_save, sender=Product)
 def status_changed(sender, instance, **kwargs):
     if not instance.pk:
@@ -41,12 +45,16 @@ def status_changed(sender, instance, **kwargs):
         data = session.get_decoded()
         cart = data.get('cart',{})
         items=cart['items']
+        product_found = False
         for item in items:
             if int(item['product_id']) ==instance.pk:
                 cart['items'].remove(item)
-                data["cart"] = cart
-
-            # Re-encode session properly
+                product_found = True
+                
+                break
+        if product_found:
+            cart['items'] = items
+            data["cart"] = cart
             store = SessionStore(session_key=session.session_key)
             store.update(data)
             store.save()

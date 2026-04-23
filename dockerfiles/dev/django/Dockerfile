@@ -5,3 +5,4 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt .
 RUN pip3 install -r requirements.txt -i https://mirror-pypi.runflare.com/simple
 COPY  ./core .
+COPY .env .env

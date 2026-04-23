@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+from decouple import config , Config, RepositoryEnv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,15 +21,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='test')
+import os
+
+# def get_secret(env_var: str) -> str:
+#     """Check for a _FILE variable first, then fall back to the standard env var."""
+#     file_path = os.environ.get(f"{env_var}_FILE")
+#     if file_path:
+#         with open(file_path, 'r') as f:
+#             return f.read().strip()
+#     return os.environ[env_var]  # Fall back to plain env var for local dev
+
+# SECRET_KEY = get_secret("SECRET_KEY")
+
+SECRET_KEY = 'test'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',cast=bool , default=True)
+DEBUG = config('DEBUG',cast=bool ,default=True)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=lambda v:[s.strip() for s in v.split(',')] , default = "*")
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -196,14 +205,14 @@ CACHES = {
     },
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 SESSION_CACHE_ALIAS = "default"
 
 
 # django debug toolbar for docker usage
 SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool, default=True)
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda request: True,  # Bypass IP check completely
+    'SHOW_TOOLBAR_CALLBACK': lambda request: SHOW_DEBUGGER_TOOLBAR,  # Bypass IP check completely
 }
 
 

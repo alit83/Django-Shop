@@ -38,7 +38,9 @@ SECRET_KEY = 'test'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',cast=bool ,default=True)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=lambda v:[s.strip() for s in v.split(',')] , default = "*")
+ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=lambda v:[s.strip() for s in v.split(',')] )
+
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT',cast=bool ,default=False)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -228,3 +230,14 @@ DEBUG_TOOLBAR_CONFIG = {
 # MIDDLEWARE += [
 #     "django.middleware.locale.LocaleMiddleware",
 # ]
+
+
+# Prevent from MIME type confusion attacks
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# Prevent from xss attacks
+SECURE_BROWSER_XSS_FILTER = True
+# prevents from Clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# limit the size of uploaded
+ATA_UPLOAD_MAX_FILE_SIZE = 10485760

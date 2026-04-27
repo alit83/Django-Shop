@@ -21,9 +21,9 @@ class IndexView(TemplateView):
         context["categories"]=categories
         try:
             coupon = CouponModel.objects.last()
-            
-            context['target_datetime']=coupon.expiration_date.isoformat()
-            context['coupon']=coupon
+            if coupon.expiration_date < datetime.now():
+                context['target_datetime']=coupon.expiration_date.isoformat()
+                context['coupon']=coupon
         except:
             pass
         return context

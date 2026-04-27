@@ -38,3 +38,9 @@ if settings.DEBUG:
 if settings.SHOW_DEBUGGER_TOOLBAR:
     from debug_toolbar.toolbar import debug_toolbar_urls
     urlpatterns += debug_toolbar_urls()
+
+handler400 = "core.error_views.error_400"  # bad_request
+handler403 = "core.error_views.error_403"  # permission_denied
+handler404 = "core.error_views.error_404"  # page_not_found
+handler500 = "core.error_views.error_500"  # server_error
+handler401 = "core.error_views.error_401"  # Unauthorized

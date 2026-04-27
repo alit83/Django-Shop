@@ -161,7 +161,7 @@ STATICFILES_DIRS = [
 #custom_user_model
 AUTH_USER_MODEL = "accounts.User"
 #site_domain
-SITE_DOMAIN = config('SITE_DOMAIN',default='http://127.0.0.1:8000')
+SITE_DOMAIN = config('SITE_DOMAIN',default='http://127.0.0.1:80')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

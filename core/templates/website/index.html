@@ -351,6 +351,7 @@
 <!-- End Clients -->
 {% endblock content %}
 {% block extra_js %}
+{% if coupon %}
 <script>
     const targetDateTimeFromDjango = "{{ target_datetime }}";
     startCountdown(targetDateTimeFromDjango);
@@ -383,4 +384,5 @@
 
 
 </script>
+{% endif %}
 {% endblock extra_js %}

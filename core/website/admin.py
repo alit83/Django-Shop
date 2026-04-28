@@ -8,3 +8,4 @@ class ContactModelAdmin(admin.ModelAdmin):
 @admin.register(NewsLetterModel)
 class NewsLetterAdmin(admin.ModelAdmin):
     list_display = ("id", "email","created_date")
+

@@ -27,3 +27,7 @@ django-simple-captcha
 
 # production module
 gunicorn
+
+
+#seo module
+django-robots

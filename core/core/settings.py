@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django.contrib.sites',
+     'django.contrib.sitemaps',
+     'robots',
     'debug_toolbar',
     'website',
     'accounts',
@@ -75,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.seo_middleware.NoIndexMiddleware',
     
 ]
 
@@ -241,3 +245,9 @@ X_FRAME_OPTIONS = 'DENY'
 
 # limit the size of uploaded
 ATA_UPLOAD_MAX_FILE_SIZE = 10485760
+
+# sites framework
+SITE_ID = config("SITE_ID",cast=int,default=2)
+
+#robots show host
+ROBOTS_USE_HOST = False

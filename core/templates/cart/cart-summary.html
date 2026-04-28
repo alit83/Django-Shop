@@ -22,7 +22,7 @@
           <!-- Item -->
           <li class="list-group-item">
             <div class="d-flex">
-              {% if object.has_image %}
+              {% if item.product_obj.has_image %}
               <div class="flex-shrink-0">
                 <img class="avatar avatar-xl avatar-4x3" src="{{item.product_obj.get_first_image}}"
                   alt="Image Description">

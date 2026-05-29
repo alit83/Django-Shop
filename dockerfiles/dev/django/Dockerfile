@@ -3,6 +3,6 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /usr/src/app
 COPY ./requirements.txt .
-RUN pip3 install -r requirements.txt -i https://mirror-pypi.runflare.com/simple
+RUN pip3 install -r requirements.txt
 COPY  ./core .
 COPY .env .env

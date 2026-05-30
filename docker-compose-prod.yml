@@ -1,0 +1,71 @@
+services:
+  db:
+    container_name: db
+    image:  postgres:15-alpine
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    restart: always
+  backend:
+     build:
+      context: .
+      dockerfile: ./dockerfiles/dev/django/Dockerfile
+     env_file:
+      - .env 
+     container_name: backend
+     volumes:
+        - ./core/:/usr/src/app
+        - static_volume:/usr/src/app/staticfiles
+        - media_volume:/usr/src/app/media
+     working_dir: /usr/src/app
+     command: gunicorn core.wsgi --bind 0.0.0.0:8000
+     expose:
+     - "8000"
+
+     
+     restart: always
+     depends_on:
+         - db
+         - redis
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning 
+  worker:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/dev/django/Dockerfile
+    env_file:
+      - .env 
+    command: celery -A core worker --loglevel warning
+    volumes:
+      - ./core/:/usr/src/app
+    depends_on:
+      - redis
+      - backend
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/home/usr/src/app/staticfiles
+      - media_volume:/home/usr/src/app/media
+    depends_on:
+      - redis
+      - backend
+volumes:
+  static_volume:
+  media_volume:

@@ -8,14 +8,18 @@ from django.utils.translation import gettext_lazy as _
 from .validators import validate_iranian_phone_number
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+
 class UserType(models.IntegerChoices):
     customer = 1, _("customer")
     admin = 2, _("admin")
     superuser = 3, _("superuser")
+
+
 class ProfileGender(models.IntegerChoices):
-    male = 1 , _("male")
-    female = 2 , _("female")
-    not_to_mention = 3 , _("not to mention")
+    male = 1, _("male")
+    female = 2, _("female")
+    not_to_mention = 3, _("not to mention")
 
 
 class UserManager(BaseUserManager):
@@ -58,7 +62,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     last_verification_email = models.DateTimeField(null=True, blank=True)
-    type = models.IntegerField(choices=UserType.choices,default=UserType.customer.value)
+    type = models.IntegerField(
+        choices=UserType.choices, default=UserType.customer.value
+    )
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     USERNAME_FIELD = "email"
@@ -68,20 +74,32 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
 class Profile(models.Model):
-    user = models.OneToOneField('User',on_delete=models.CASCADE , related_name="user_profile")
+    user = models.OneToOneField(
+        "User", on_delete=models.CASCADE, related_name="user_profile"
+    )
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
-    image = models.ImageField(upload_to='profile/',default='profile/default.jpg')
-    phone_number=models.CharField(max_length=12,validators=[validate_iranian_phone_number])
-    gender = models.IntegerField(choices=ProfileGender.choices , null=True,blank=True)
-    created_date=models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(
+        upload_to="profile/", default="profile/default.jpg"
+    )
+    phone_number = models.CharField(
+        max_length=12, validators=[validate_iranian_phone_number]
+    )
+    gender = models.IntegerField(
+        choices=ProfileGender.choices, null=True, blank=True
+    )
+    created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+
     def get_fullname(self):
-        if self.first_name or self.last_name :
+        if self.first_name or self.last_name:
             return self.first_name + " " + self.last_name
         return "کاربر جدید"
-@receiver(post_save,sender=User)
-def create_profile(sender,instance,created,**kwargs):
+
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance , pk=instance.pk)
+        Profile.objects.create(user=instance, pk=instance.pk)

@@ -8,22 +8,39 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='ContactModel',
+            name="ContactModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('full_name', models.CharField(max_length=250)),
-                ('phone_number', models.CharField(blank=True, max_length=12, null=True, validators=[accounts.validators.validate_iranian_phone_number])),
-                ('email', models.EmailField(max_length=255)),
-                ('subject', models.CharField(max_length=250)),
-                ('content', models.TextField(max_length=750)),
-                ('is_seen', models.BooleanField(default=False)),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('updated_date', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("full_name", models.CharField(max_length=250)),
+                (
+                    "phone_number",
+                    models.CharField(
+                        blank=True,
+                        max_length=12,
+                        null=True,
+                        validators=[
+                            accounts.validators.validate_iranian_phone_number
+                        ],
+                    ),
+                ),
+                ("email", models.EmailField(max_length=255)),
+                ("subject", models.CharField(max_length=250)),
+                ("content", models.TextField(max_length=750)),
+                ("is_seen", models.BooleanField(default=False)),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("updated_date", models.DateTimeField(auto_now=True)),
             ],
         ),
     ]

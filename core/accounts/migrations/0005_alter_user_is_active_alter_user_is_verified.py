@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0004_alter_user_is_verified'),
+        ("accounts", "0004_alter_user_is_verified"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='is_active',
+            model_name="user",
+            name="is_active",
             field=models.BooleanField(default=True),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='is_verified',
+            model_name="user",
+            name="is_verified",
             field=models.BooleanField(default=False),
         ),
     ]

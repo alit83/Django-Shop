@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 # function for error 400
 def error_400(request, exception):
     context = {"exeption": exception}
@@ -38,7 +39,6 @@ def error_500(request):
     return response
 
 
-
 # function for error 401
 
 
@@ -47,4 +47,3 @@ def error_401(request, exception):
     response = render(request, "errors/401.html", context=context)
     response.status_code = 401
     return response
-

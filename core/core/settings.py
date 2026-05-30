@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config , Config, RepositoryEnv
+from decouple import config, Config, RepositoryEnv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,87 +33,86 @@ import os
 
 # SECRET_KEY = get_secret("SECRET_KEY")
 
-SECRET_KEY = 'test'
+SECRET_KEY = "test"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',cast=bool ,default=True)
+DEBUG = config("DEBUG", cast=bool, default=True)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=lambda v:[s.strip() for s in v.split(',')] )
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+)
 
-SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT',cast=bool ,default=False)
+SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", cast=bool, default=False)
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.postgres',
-    'django.contrib.sites',
-     'django.contrib.sitemaps',
-     'robots',
-    'debug_toolbar',
-    'website',
-    'accounts',
-    'shop',
-    'cart',
-    'dashboard',
-    'order',
-    'payment',
-    'review',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.postgres",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
+    "robots",
+    "debug_toolbar",
+    "website",
+    "accounts",
+    "shop",
+    "cart",
+    "dashboard",
+    "order",
+    "payment",
+    "review",
     "mail_templated",
-    'captcha',
-    
+    "captcha",
 ]
 
 
 MIDDLEWARE = [
-    
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.seo_middleware.NoIndexMiddleware',
-    
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "core.seo_middleware.NoIndexMiddleware",
 ]
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'cart.context_processors.cart_processor',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "cart.context_processors.cart_processor",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = "core.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config("PGDB_NAME",default='postgres'),
-        'USER': config("PGDB_USER",default='postgres'),
-        'PASSWORD': config("PGDB_PASSWORD",default='postgres'),
-        'HOST': config("PGDB_HOST",default='db'),
-        'PORT': config("PGDB_PORT",cast=int , default=5432)
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("PGDB_NAME", default="postgres"),
+        "USER": config("PGDB_USER", default="postgres"),
+        "PASSWORD": config("PGDB_PASSWORD", default="postgres"),
+        "HOST": config("PGDB_HOST", default="db"),
+        "PORT": config("PGDB_PORT", cast=int, default=5432),
     }
 }
 
@@ -123,16 +122,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -140,9 +139,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -152,33 +151,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
+STATIC_URL = "static/"
+MEDIA_URL = "media/"
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_ROOT = BASE_DIR / "media"
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-#custom_user_model
+# custom_user_model
 AUTH_USER_MODEL = "accounts.User"
-#site_domain
-SITE_DOMAIN = config('SITE_DOMAIN',default='http://127.0.0.1:80')
+# site_domain
+SITE_DOMAIN = config("SITE_DOMAIN", default="http://127.0.0.1:80")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-INTERNAL_IPS = ['127.0.0.1', '172.0.0.0/8', '10.0.0.0/8']
-AUTH_USER_MODEL = 'accounts.User'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+INTERNAL_IPS = ["127.0.0.1", "172.0.0.0/8", "10.0.0.0/8"]
+AUTH_USER_MODEL = "accounts.User"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
-#payment gateway settings
-MERCHANT_ID = config("MERCHANT_ID",default="4ced0a1e-4ad8-4309-9668-3ea3ae8e8897")
-SANDBOX_MODE = config("SANDBOX_MODE",cast=bool,default=True)
+# payment gateway settings
+MERCHANT_ID = config(
+    "MERCHANT_ID", default="4ced0a1e-4ad8-4309-9668-3ea3ae8e8897"
+)
+SANDBOX_MODE = config("SANDBOX_MODE", cast=bool, default=True)
 
 # email_configurations
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -189,25 +188,25 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 
-#celery_configs
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+# celery_configs
+CELERY_BROKER_URL = "redis://redis:6379/0"
 
-#caching configs
+# caching configs
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://redis:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+        },
     },
-    'latest_products_tag': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/2',
-        'TIMEOUT': 1800,  # 30 min
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
- }
+    "latest_products_tag": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/2",
+        "TIMEOUT": 1800,  # 30 min
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
     },
 }
 
@@ -216,9 +215,11 @@ SESSION_CACHE_ALIAS = "default"
 
 
 # django debug toolbar for docker usage
-SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool, default=True)
+SHOW_DEBUGGER_TOOLBAR = config(
+    "SHOW_DEBUGGER_TOOLBAR", cast=bool, default=True
+)
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda request: SHOW_DEBUGGER_TOOLBAR,  # Bypass IP check completely
+    "SHOW_TOOLBAR_CALLBACK": lambda request: SHOW_DEBUGGER_TOOLBAR,  # Bypass IP check completely
 }
 
 
@@ -241,13 +242,13 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # Prevent from xss attacks
 SECURE_BROWSER_XSS_FILTER = True
 # prevents from Clickjacking
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = "DENY"
 
 # limit the size of uploaded
 ATA_UPLOAD_MAX_FILE_SIZE = 10485760
 
 # sites framework
-SITE_ID = config("SITE_ID",cast=int,default=2)
+SITE_ID = config("SITE_ID", cast=int, default=2)
 
-#robots show host
+# robots show host
 ROBOTS_USE_HOST = False

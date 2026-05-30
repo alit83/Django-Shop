@@ -12,5 +12,5 @@ class OrderModelAdmin(admin.ModelAdmin):
         "amount",
         "ref_id",
         "status",
-        "created_date"
+        "created_date",
     )

@@ -7,22 +7,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0006_product_avg_rate'),
+        ("shop", "0006_product_avg_rate"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='productcategory',
-            name='parent',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='category_child', to='shop.productcategory'),
+            model_name="productcategory",
+            name="parent",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="category_child",
+                to="shop.productcategory",
+            ),
         ),
         migrations.RemoveField(
-            model_name='product',
-            name='category',
+            model_name="product",
+            name="category",
         ),
         migrations.AddField(
-            model_name='product',
-            name='category',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='shop.productcategory'),
+            model_name="product",
+            name="category",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="shop.productcategory",
+            ),
         ),
     ]

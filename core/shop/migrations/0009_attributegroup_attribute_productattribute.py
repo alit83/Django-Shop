@@ -7,33 +7,85 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0008_alter_productcategory_parent'),
+        ("shop", "0008_alter_productcategory_parent"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AttributeGroup',
+            name="AttributeGroup",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attribute_group_category', to='shop.productcategory')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="attribute_group_category",
+                        to="shop.productcategory",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Attribute',
+            name="Attribute",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('group', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attributes_group', to='shop.attributegroup')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                (
+                    "group",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="attributes_group",
+                        to="shop.attributegroup",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ProductAttribute',
+            name="ProductAttribute",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.CharField(max_length=255)),
-                ('attribute', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attribute_attributes', to='shop.attribute')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_attribute', to='shop.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.CharField(max_length=255)),
+                (
+                    "attribute",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="attribute_attributes",
+                        to="shop.attribute",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product_attribute",
+                        to="shop.product",
+                    ),
+                ),
             ],
         ),
     ]

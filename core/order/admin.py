@@ -12,7 +12,7 @@ class OrderModelAdmin(admin.ModelAdmin):
         "total_price",
         "coupon",
         "status",
-        "created_date"
+        "created_date",
     )
 
 
@@ -24,7 +24,7 @@ class OrderItemModelAdmin(admin.ModelAdmin):
         "product",
         "quantity",
         "price",
-        "created_date"
+        "created_date",
     )
 
 
@@ -37,20 +37,13 @@ class CouponModelAdmin(admin.ModelAdmin):
         "max_limit_usage",
         "used_by_count",
         "expiration_date",
-        "created_date"
+        "created_date",
     )
-    
+
     def used_by_count(self, obj):
         return obj.used_by.all().count()
 
 
 @admin.register(UserAddressModel)
 class UserAddressModelAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "user",
-        "state",
-        "city",
-        "zip_code",
-        "created_date"
-    )
+    list_display = ("id", "user", "state", "city", "zip_code", "created_date")

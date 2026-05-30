@@ -8,22 +8,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0002_alter_profile_gender'),
+        ("accounts", "0002_alter_profile_gender"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='profile',
-            name='description',
+            model_name="profile",
+            name="description",
         ),
         migrations.AddField(
-            model_name='profile',
-            name='image',
-            field=models.ImageField(default='profile/default.jpg', upload_to='profile/'),
+            model_name="profile",
+            name="image",
+            field=models.ImageField(
+                default="profile/default.jpg", upload_to="profile/"
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='user_profile', to=settings.AUTH_USER_MODEL),
+            model_name="profile",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="user_profile",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

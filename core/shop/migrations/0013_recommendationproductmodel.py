@@ -7,15 +7,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0012_remove_product_product_title_gin_idx_and_more'),
+        ("shop", "0012_remove_product_product_title_gin_idx_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='RecommendationProductModel',
+            name="RecommendationProductModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='shop.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "product",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="shop.product",
+                    ),
+                ),
             ],
         ),
     ]

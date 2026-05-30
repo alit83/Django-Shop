@@ -17,6 +17,7 @@ django_debug_toolbar
 pytest
 pytest-django
 requests-mock
+flake8
 #cache & async task module 
 celery
 redis

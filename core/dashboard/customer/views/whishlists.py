@@ -1,4 +1,7 @@
-from django.views.generic import UpdateView, DeleteView, CreateView, ListView, DetailView, View
+from django.views.generic import (
+    DeleteView,
+    ListView,
+)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from dashboard.permissions import HasCustomerAccessPermission
 from django.contrib.messages.views import SuccessMessageMixin
@@ -7,12 +10,14 @@ from django.core.exceptions import FieldError
 from shop.models import WishlistProductModel
 
 
-class CustomerWishlistListView(LoginRequiredMixin, HasCustomerAccessPermission, ListView):
+class CustomerWishlistListView(
+    LoginRequiredMixin, HasCustomerAccessPermission, ListView
+):
     template_name = "dashboard/customer/wishlists/wishlist-list.html"
     paginate_by = 5
 
     def get_paginate_by(self, queryset):
-        return self.request.GET.get('page_size', self.paginate_by)
+        return self.request.GET.get("page_size", self.paginate_by)
 
     def get_queryset(self):
         queryset = WishlistProductModel.objects.filter(user=self.request.user)
@@ -31,9 +36,14 @@ class CustomerWishlistListView(LoginRequiredMixin, HasCustomerAccessPermission, 
         return context
 
 
-class CustomerWishlistDeleteView(LoginRequiredMixin, HasCustomerAccessPermission, SuccessMessageMixin, DeleteView):
+class CustomerWishlistDeleteView(
+    LoginRequiredMixin,
+    HasCustomerAccessPermission,
+    SuccessMessageMixin,
+    DeleteView,
+):
     http_method_names = ["post"]
-    success_url = reverse_lazy('dashboard:customer:wishlist-list')
+    success_url = reverse_lazy("dashboard:customer:wishlist-list")
     success_message = "محصول با موفقیت از لیست علایق حذف شد"
 
     def get_queryset(self):

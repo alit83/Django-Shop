@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0011_add_gin_index'),
+        ("shop", "0011_add_gin_index"),
     ]
 
     operations = [
         migrations.RemoveIndex(
-            model_name='product',
-            name='product_title_gin_idx',
+            model_name="product",
+            name="product_title_gin_idx",
         ),
         migrations.AlterUniqueTogether(
-            name='productattribute',
-            unique_together={('attribute', 'product')},
+            name="productattribute",
+            unique_together={("attribute", "product")},
         ),
     ]

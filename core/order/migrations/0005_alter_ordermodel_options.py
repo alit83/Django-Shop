@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('order', '0004_ordermodel_payment'),
+        ("order", "0004_ordermodel_payment"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='ordermodel',
-            options={'ordering': ['-created_date']},
+            name="ordermodel",
+            options={"ordering": ["-created_date"]},
         ),
     ]

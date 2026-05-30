@@ -7,13 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0007_productcategory_parent_remove_product_category_and_more'),
+        (
+            "shop",
+            "0007_productcategory_parent_remove_product_category_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='productcategory',
-            name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='category_child', to='shop.productcategory'),
+            model_name="productcategory",
+            name="parent",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="category_child",
+                to="shop.productcategory",
+            ),
         ),
     ]

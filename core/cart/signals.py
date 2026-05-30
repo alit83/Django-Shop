@@ -1,59 +1,60 @@
-from django.contrib.auth.signals import user_logged_in , user_logged_out 
+from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
-from django.contrib.sessions.backends.db import SessionStore
 from django.db.models.signals import pre_save
 from .cart import CartSession
 from django.core.cache import cache
-from .models import CartItemModel , CartModel
+from .models import CartItemModel
 from django.contrib.sessions.models import Session
-from shop.models import Product , ProductStatus
+from shop.models import Product, ProductStatus
 from django.conf import settings
 from importlib import import_module
-from django_redis import get_redis_connection
 
 
 @receiver(user_logged_in)
-def post_login(sender,user,request,**kwargs):
+def post_login(sender, user, request, **kwargs):
     cart = CartSession(request.session)
     cart.sync_cart_items_db(user)
 
+
 @receiver(user_logged_out)
-def pre_logout(sender,user,request,**kwargs):
+def pre_logout(sender, user, request, **kwargs):
     cart = CartSession(request.session)
     cart.merge_session_cart_in_db(user)
 
 
 SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
+
+
 @receiver(pre_save, sender=Product)
 def status_changed(sender, instance, **kwargs):
     if not instance.pk:
-        return   # new object; nothing changed yet
+        return  # new object; nothing changed yet
 
     old_value = sender.objects.get(pk=instance.pk).status
     new_value = instance.status
 
-    if old_value == new_value or new_value == ProductStatus.publish.value :
+    if old_value == new_value or new_value == ProductStatus.publish.value:
         return
 
-    #user = instance.user
-    cache.delete('latest_products_tag')
+    # user = instance.user
+    cache.delete("latest_products_tag")
     CartItemModel.objects.filter(product=instance).delete()
 
     # 2.remove session data
-    sessions= Session.objects.all()
+    sessions = Session.objects.all()
     for session in sessions:
         data = session.get_decoded()
-        cart = data.get('cart',{})
-        items=cart['items']
+        cart = data.get("cart", {})
+        items = cart["items"]
         product_found = False
         for item in items:
-            if int(item['product_id']) ==instance.pk:
-                cart['items'].remove(item)
+            if int(item["product_id"]) == instance.pk:
+                cart["items"].remove(item)
                 product_found = True
-                
+
                 break
         if product_found:
-            cart['items'] = items
+            cart["items"] = items
             data["cart"] = cart
             store = SessionStore(session_key=session.session_key)
             store.update(data)

@@ -1,0 +1,20 @@
+name: Django Project CI/CD
+
+on:
+  push:
+    branches: [ "main" , "prod"]
+  pull_request:
+    branches: [ "main" , "prod"]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Docker Compose
+      run: docker compose -f docker-compose-prod.yml up -d
+    - name: Run Tests
+      run: docker compose -f docker-compose-prod.yml exec backend sh -c "flask8 && pytest ." 

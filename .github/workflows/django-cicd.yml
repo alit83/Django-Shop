@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Setup Docker Compose
-      run: docker compose -f docker-compose-prod.yml up -d
+      run: ls -la 
     - name: Run Tests
       run: docker compose -f docker-compose-prod.yml exec backend sh -c "flask8 && pytest ./core" 

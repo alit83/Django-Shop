@@ -181,12 +181,15 @@ SANDBOX_MODE = config("SANDBOX_MODE", cast=bool, default=True)
 
 # email_configurations
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp4dev"
-EMAIL_PORT = 25
-ENAIL_USE_TLS = False
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_PORT = config("EMAIL_PORT", cast=int, default=587)
+ENAIL_USE_TLS = config("ENAIL_USE_TLS", cast=bool,default=False)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+
+#default_email_host_for_email_message
+DEFAULT_HOST_EMAIL='thunder138383@gmail.com'
+
 
 # celery_configs
 CELERY_BROKER_URL = "redis://redis:6379/0"

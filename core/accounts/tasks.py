@@ -1,14 +1,14 @@
 from celery import shared_task
 from mail_templated import EmailMessage
 from core.settings import SITE_DOMAIN
-
+from django.conf import settings
 
 @shared_task
 def send_verify_email(token, email):
     message = EmailMessage(
         "email/email-verify.tpl",
         {"token": token, "site_domain": SITE_DOMAIN},
-        "test@test.com",
+        settings.DEFAULT_HOST_EMAIL,
         to=[email],
     )
     message.send()

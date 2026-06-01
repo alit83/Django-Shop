@@ -113,6 +113,15 @@ DATABASES = {
         "PASSWORD": config("PGDB_PASSWORD", default="postgres"),
         "HOST": config("PGDB_HOST", default="db"),
         "PORT": config("PGDB_PORT", cast=int, default=5432),
+        "CONN_MAX_AGE": config("CONN_MAX_AGE", default= 600),
+        "CONN_HEALTH_CHECKS": True,  
+        "OPTIONS": {
+            "connect_timeout": 10,
+            "keepalives": 1,
+            "keepalives_idle": 60,
+            "keepalives_interval": 10,
+            "keepalives_count": 5,
+        }
     }
 }
 

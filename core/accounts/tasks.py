@@ -3,6 +3,7 @@ from mail_templated import EmailMessage
 from core.settings import SITE_DOMAIN
 from django.conf import settings
 
+
 @shared_task
 def send_verify_email(token, email):
     message = EmailMessage(

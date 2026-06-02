@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config, Config, RepositoryEnv
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -113,7 +113,7 @@ DATABASES = {
         "PASSWORD": config("PGDB_PASSWORD", default="postgres"),
         "HOST": config("PGDB_HOST", default="db"),
         "PORT": config("PGDB_PORT", cast=int, default=5432),
-        "CONN_MAX_AGE": config("CONN_MAX_AGE", default= 600),
+        "CONN_MAX_AGE": config("CONN_MAX_AGE",cast=int ,default= 600),
         "CONN_HEALTH_CHECKS": True,  
         "OPTIONS": {
             "connect_timeout": 10,

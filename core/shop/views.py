@@ -24,6 +24,7 @@ class ShopProductsGridView(ListView):
 
     def get_queryset(self):
         slug = self.kwargs.get("slug")
+        self._slug = slug
         self.cat = get_object_or_404(ProductCategory, slug=slug)
         queryset = Product.objects.filter(
             category__slug=self.cat.slug, status=ProductStatus.publish.value
@@ -73,6 +74,7 @@ class ShopProductsGridView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["total_items"] = self.get_queryset().count()
+        context["title_slug"] = self._slug
         context["wishlist_items"] = (
             WishlistProductModel.objects.filter(
                 user=self.request.user
@@ -204,8 +206,8 @@ class ShopProductMiddleView(ListView):
     template_name = "shop/products-middle.html"
 
     def get_queryset(self):
-        slug = self.kwargs.get("slug")
-        self.cat = get_object_or_404(ProductCategory, slug=slug)
+        self._slug = self.kwargs.get("slug")
+        self.cat = get_object_or_404(ProductCategory, slug=self._slug)
         queryset = Product.objects.filter(
             category__parent__slug=self.cat.slug,
             status=ProductStatus.publish.value,
@@ -250,6 +252,7 @@ class ShopProductMiddleView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["total_items"] = self.get_queryset().count()
+        context["title_slug"] = self._slug
         context["wishlist_items"] = (
             WishlistProductModel.objects.filter(
                 user=self.request.user

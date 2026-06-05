@@ -1,6 +1,6 @@
 # Django Shop
 
-A modern e-commerce backend built with Django and Django REST Framework.
+A rendering web shop built with Django.
 
 ## Features
 
@@ -9,7 +9,6 @@ A modern e-commerce backend built with Django and Django REST Framework.
 * User authentication
 * Shopping cart
 * Order management
-* RESTful API
 * Admin dashboard
 * Secure authentication and permissions
 
@@ -17,21 +16,13 @@ A modern e-commerce backend built with Django and Django REST Framework.
 
 * Python
 * Django
-* Django REST Framework
 * PostgreSQL
 * Docker
 * Redis
 * Celery
+* gunicorn
+* nginx
 
-## API Features
-
-* User registration and authentication
-* Product CRUD operations
-* Category CRUD operations
-* Shopping cart management
-* Order creation and tracking
-* Search and filtering
-* Pagination
 
 ## Project Structure
 
@@ -61,17 +52,10 @@ git clone https://github.com/yourusername/Django-Shop.git
 cd Django-Shop
 ```
 
-### Create Virtual Environment
+### Start Docker Compose
 
 ```bash
-python -m venv venv
-source venv/bin/activate
-```
-
-### Install Dependencies
-
-```bash
-pip install -r requirements.txt
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 ### Environment Variables
@@ -87,22 +71,18 @@ DATABASE_URL=postgresql://user:password@localhost/dbname
 ### Apply Migrations
 
 ```bash
-python manage.py migrate
+docker compose -f docker-compose.prod.yml exec backend sh -c "python manage.py migrate"
 ```
 
 ### Create Superuser
 
 ```bash
-python manage.py createsuperuser
+docker compose -f docker-compose.prod.yml exec backend sh -c "python manage.py createsuperuser"
 ```
 
-### Run Development Server
 
-```bash
-python manage.py runserver
-```
 
-## API Documentation
+## Documentation
 
 Available at:
 
@@ -123,15 +103,6 @@ https://github.com/user-attachments/assets/bd2d5ace-760e-48d1-b303-2bbbe747cec7
 ```bash
 pytest
 ```
-
-## Future Improvements
-
-* Payment gateway integration
-* Wishlist
-* Product reviews
-* Email notifications
-* Docker deployment
-* CI/CD pipeline
 
 ## License
 

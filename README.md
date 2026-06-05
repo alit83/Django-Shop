@@ -36,12 +36,19 @@ A modern e-commerce backend built with Django and Django REST Framework.
 ## Project Structure
 
 ```text
-project/
+core/
 ├── accounts/
-├── products/
-├── orders/
-├── carts/
-├── config/
+├── core/
+├── shop/
+├── dashboard/
+├── media/
+├── order/
+├── payment/
+├── cart/
+├── review/
+├── staticfiles/
+├── templates/
+├── website/
 └── manage.py
 ```
 

@@ -23,15 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 import os
 
-def get_secret(env_var: str) -> str:
-    """Check for a _FILE variable first, then fall back to the standard env var."""
-    file_path = os.environ.get(f"{env_var}_FILE")
-    if file_path:
-        with open(file_path, 'r') as f:
-            return f.read().strip()
-    return os.environ[env_var]  # Fall back to plain env var for local dev
+# def get_secret(env_var: str) -> str:
+#     """Check for a _FILE variable first, then fall back to the standard env var."""
+#     file_path = os.environ.get(f"{env_var}_FILE")
+#     if file_path:
+#         with open(file_path, 'r') as f:
+#             return f.read().strip()
+#     return os.environ[env_var]  # Fall back to plain env var for local dev
 
-SECRET_KEY = get_secret("SECRET_KEY")
+SECRET_KEY = config("ECRET_KEY", default='test')
 
 
 

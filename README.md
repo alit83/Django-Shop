@@ -103,9 +103,13 @@ Available at:
 /api/docs/
 ```
 
-## Screenshots
+## Admin panel
 
-Add screenshots or GIFs here.
+
+
+https://github.com/user-attachments/assets/bd2d5ace-760e-48d1-b303-2bbbe747cec7
+
+
 
 ## Testing
 

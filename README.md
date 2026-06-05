@@ -52,15 +52,9 @@ git clone https://github.com/yourusername/Django-Shop.git
 cd Django-Shop
 ```
 
-### Start Docker Compose
-
-```bash
-docker compose -f docker-compose.prod.yml up -d
-```
-
 ### Environment Variables
 
-Create a `.env` file:
+Create a `.env` file in Django-Shop:
 
 ```env
 DEBUG=False
@@ -73,20 +67,28 @@ EMAIL_HOST_PASSWORD = 'password'
 EMAIL_USE_TLS=True
 PGDB_NAME="postgres"
 PGDB_USER="postgres"
-PGDB_PASSWORD="password"
+PGDB_PASSWORD="postgres"
 PGDB_HOST='db'
+POSTGRES_PASSWORD='postgres'
 ```
+
+### Start Docker Compose
+
+```bash
+docker compose -f docker-compose-prod.yml up -d
+```
+
 
 ### Apply Migrations
 
 ```bash
-docker compose -f docker-compose.prod.yml exec backend sh -c "python manage.py migrate"
+docker compose -f docker-compose-prod.yml exec backend sh -c "python manage.py migrate"
 ```
 
 ### Create Superuser
 
 ```bash
-docker compose -f docker-compose.prod.yml exec backend sh -c "python manage.py createsuperuser"
+docker compose -f docker-compose-prod.yml exec backend sh -c "python manage.py createsuperuser"
 ```
 
 

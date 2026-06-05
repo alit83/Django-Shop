@@ -63,9 +63,18 @@ docker compose -f docker-compose.prod.yml up -d
 Create a `.env` file:
 
 ```env
-DEBUG=True
-SECRET_KEY=your-secret-key
-DATABASE_URL=postgresql://user:password@localhost/dbname
+DEBUG=False
+SHOW_DEBUGGER_TOOLBAR=False
+ALLOWED_HOSTS=*
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'example@example.com'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_USE_TLS=True
+PGDB_NAME="postgres"
+PGDB_USER="postgres"
+PGDB_PASSWORD="password"
+PGDB_HOST='db'
 ```
 
 ### Apply Migrations

@@ -98,7 +98,7 @@ docker compose -f docker-compose-prod.yml exec backend sh -c "python manage.py c
 Available at:
 
 ```text
-/api/docs/
+/Django-Shop/docs/
 ```
 
 ## Admin panel

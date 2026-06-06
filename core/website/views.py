@@ -37,7 +37,7 @@ class IndexView(TemplateView):
             if coupon.expiration_date < datetime.now():
                 context["target_datetime"] = coupon.expiration_date.isoformat()
                 context["coupon"] = coupon
-        except (TypeError, KeyError):
+        except:
             pass
         return context
 
